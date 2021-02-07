@@ -152,6 +152,52 @@ def move(facing, x_axis, y_axis):
             return False
 
 
+def rotate_left():
+    # rotate 90deg to the left
+    global curr_facing_position
+    if curr_facing_position == 'NORTH':
+        curr_facing_position = "WEST"
+
+    elif curr_facing_position == 'WEST':
+        curr_facing_position = "SOUTH"
+
+    elif curr_facing_position == 'SOUTH':
+        curr_facing_position = "EAST"
+
+    elif curr_facing_position == 'EAST':
+        curr_facing_position = "NORTH"
+
+    if debug_flag:
+        print("rotating left")
+    return curr_facing_position
+
+
+def rotate_right():
+
+    # rotate 90deg to the right
+    global curr_facing_position
+    if curr_facing_position == 'NORTH':
+        curr_facing_position = "EAST"
+    elif curr_facing_position == 'EAST':
+        curr_facing_position = "SOUTH"
+    elif curr_facing_position == 'SOUTH':
+        curr_facing_position = "WEST"
+    elif curr_facing_position == 'WEST':
+        curr_facing_position = "NORTH"
+
+    if debug_flag:
+        print("rotating right")
+    return curr_facing_position
+
+
+def rotate(direction):
+    switcher = {
+        "LEFT": rotate_left,
+        "RIGHT": rotate_right
+    }
+    return switcher.get(direction, "Invalid Direction")()
+
+
 if __name__ == '__main__':
     # file input
 
@@ -181,9 +227,9 @@ if __name__ == '__main__':
                 if "MOVE" in line:
                     move(direction, curr_x_axis, curr_y_axis)
                 if "LEFT" in line:
-                    print ("go left")
+                    rotate("LEFT")
                 if "RIGHT" in line:
-                    print ("go right")
+                    rotate("RIGHT")
                 if "REPORT" in line:
                     # report
                     print ("report")
