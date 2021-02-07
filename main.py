@@ -156,16 +156,16 @@ def rotate_left():
     # rotate 90deg to the left
     global curr_facing_position
     if curr_facing_position == 'NORTH':
-        curr_facing_position = "WEST"
+        set_direction("WEST")
 
     elif curr_facing_position == 'WEST':
-        curr_facing_position = "SOUTH"
+        set_direction("SOUTH")
 
     elif curr_facing_position == 'SOUTH':
-        curr_facing_position = "EAST"
+        set_direction("EAST")
 
     elif curr_facing_position == 'EAST':
-        curr_facing_position = "NORTH"
+        set_direction("NORTH")
 
     if debug_flag:
         print("rotating left")
@@ -177,13 +177,13 @@ def rotate_right():
     # rotate 90deg to the right
     global curr_facing_position
     if curr_facing_position == 'NORTH':
-        curr_facing_position = "EAST"
+        set_direction("EAST")
     elif curr_facing_position == 'EAST':
-        curr_facing_position = "SOUTH"
+        set_direction("SOUTH")
     elif curr_facing_position == 'SOUTH':
-        curr_facing_position = "WEST"
+        set_direction("WEST")
     elif curr_facing_position == 'WEST':
-        curr_facing_position = "NORTH"
+        set_direction("NORTH")
 
     if debug_flag:
         print("rotating right")
@@ -198,12 +198,21 @@ def rotate(direction):
     return switcher.get(direction, "Invalid Direction")()
 
 
+def report():
+    return curr_x_axis, curr_y_axis, curr_facing_position
+
+
+def report_str():
+    reporting_output = report()
+    print "Output: " + str(reporting_output[0])+","+str(reporting_output[1])+","+reporting_output[2]
+
+
 if __name__ == '__main__':
-    # file input
 
     if len(sys.argv) == 1:
         print ("You must supply the input file to process instructions ; Example: python main.py <input_file.txt>")
     else:
+        # file input
         input_file_arg = sys.argv[1]
 
         if len(sys.argv) > 1:
@@ -225,11 +234,10 @@ if __name__ == '__main__':
                     set_location(int(coordinates[0]), int(coordinates[1]))
                     set_direction(direction)
                 if "MOVE" in line:
-                    move(direction, curr_x_axis, curr_y_axis)
+                    move(curr_facing_position, curr_x_axis, curr_y_axis)
                 if "LEFT" in line:
                     rotate("LEFT")
                 if "RIGHT" in line:
                     rotate("RIGHT")
                 if "REPORT" in line:
-                    # report
-                    print ("report")
+                    report_str()
