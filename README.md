@@ -1,10 +1,20 @@
 # Code-Challenge-1
 
-Code problem details:
+
 
 -----------
+## Pacman Simulator
 
-Pacman Simulator
+
+
+**My Solution:**
+
+Unit tests `python test.main.py`
+Test Input instructions `python main.py <formatted input file>`
+ -  Example `python main.py test.1.txt`
+
+
+-----------
 
 Description:
 
