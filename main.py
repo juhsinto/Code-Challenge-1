@@ -28,9 +28,49 @@ def set_location(x_axis, y_axis):
         curr_x_axis = x_axis
         global curr_y_axis
         curr_y_axis = y_axis
+        if debug_flag:
+            print ("location set", curr_x_axis, curr_y_axis)
         return True
     else:
+        if debug_flag:
+            print ("illegal location set", curr_x_axis, curr_y_axis)
         return False
+
+
+def set_direction(direction_intended):
+    if direction_intended == "NORTH" or direction_intended == "EAST" or direction_intended == "SOUTH" or direction_intended == "WEST":
+
+        global curr_facing_position
+        curr_facing_position = direction_intended
+        if debug_flag:
+            print ("direction set", curr_facing_position)
+            return True
+    else:
+        if debug_flag:
+            print ("bad direction given", direction_intended)
+            sys.exit(-1)
+        return False
+
+    # do the actual movement
+    move_step, axis = get_move_translation(facing)
+    if axis == 'x':
+        if check_if_coordinates_valid(x_axis+move_step, y_axis):
+            global curr_x_axis
+            curr_x_axis = x_axis+move_step
+            return True
+        else:
+            if debug_flag:
+                print("move would be illegal x-axis value would be ", x_axis+move_step)
+            return False
+    if axis == 'y':
+        if check_if_coordinates_valid(x_axis, y_axis+move_step):
+            global curr_y_axis
+            curr_y_axis = y_axis+move_step
+            return True
+        else:
+            if debug_flag:
+                print("move would be illegal y-axis value would be ", y_axis+move_step)
+            return False
 
 
 if __name__ == '__main__':
@@ -58,10 +98,9 @@ if __name__ == '__main__':
                     coordinates = coordinates_with_direction.split(",")[0], coordinates_with_direction.split(",")[1]
                     direction = coordinates_with_direction.split(",")[2]
                     set_location(int(coordinates[0]), int(coordinates[1]))
-
+                    set_direction(direction)
                 if "MOVE" in line:
                     # do movement
-                    print ("do movement")
                 if "LEFT" in line:
                     print ("go left")
                 if "RIGHT" in line:
