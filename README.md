@@ -13,7 +13,8 @@ Unit tests `python test.main.py`
 Test Input instructions `python main.py <formatted input file>`
  -  Example `python main.py test.1.txt`
 
-
+##### EXTRA
+- Enable debug mode with -d or --debug as second argument `python main.py <formatted input file> -d`
 -----------
 
 Description:
