@@ -51,6 +51,8 @@ def set_direction(direction_intended):
             sys.exit(-1)
         return False
 
+
+def move(facing, x_axis, y_axis):
     # do the actual movement
     move_step, axis = get_move_translation(facing)
     if axis == 'x':
@@ -104,8 +106,6 @@ def get_move_translation(facing):
 
     # get facing axis translation (positive or negative) and axis
     return switcher.get(facing, "Invalid Facing Position")
-    # print("move step", move_step)
-    # print("move axis", axis)
 
 
 def get_move_translation(facing):
