@@ -73,6 +73,85 @@ def set_direction(direction_intended):
             return False
 
 
+def move_north():
+    # move up on y axis ; positive addition to y axis
+    return 1, "y"
+
+
+def move_south():
+    # move down on y axis ; negative addition to y axis
+    return -1, "y"
+
+
+def move_east():
+    # move left on x axis ; positive addition to x axis
+    return 1, "x"
+
+
+def move_west():
+    # move right on x axis ; negative addition to x axis
+    return -1, "x"
+
+
+def get_move_translation(facing):
+    # get_move_translation ; facing - can be NORTH, SOUTH, EAST, WEST ; returns move_step, axis
+    switcher = {
+        "NORTH": move_north(),
+        "SOUTH": move_south(),
+        "EAST": move_east(),
+        "WEST": move_west(),
+    }
+
+    # get facing axis translation (positive or negative) and axis
+    return switcher.get(facing, "Invalid Facing Position")
+    # print("move step", move_step)
+    # print("move axis", axis)
+
+
+def get_move_translation(facing):
+    # get_move_translation ; facing - can be NORTH, SOUTH, EAST, WEST ; returns move_step, axis
+    switcher = {
+        "NORTH": move_north(),
+        "SOUTH": move_south(),
+        "EAST": move_east(),
+        "WEST": move_west(),
+    }
+
+    # get facing axis translation (positive or negative) and axis
+    return switcher.get(facing, "Invalid Facing Position")
+    if debug_flag:
+        print("move step: ", move_step)
+        print("move axis: ", axis)
+
+
+def move(facing, x_axis, y_axis):
+
+    # do the actual movement
+    move_step, axis = get_move_translation(facing)
+    if axis == 'x':
+        if check_if_coordinates_valid(x_axis+move_step, y_axis):
+            global curr_x_axis
+            curr_x_axis = x_axis+move_step
+            if debug_flag:
+                print("moving on x axis, x is now :", curr_x_axis)
+            return True
+        else:
+            if debug_flag:
+                print("move would be illegal x-axis value would be ", x_axis+move_step)
+            return False
+    if axis == 'y':
+        if check_if_coordinates_valid(x_axis, y_axis+move_step):
+            global curr_y_axis
+            curr_y_axis = y_axis+move_step
+            if debug_flag:
+                print("moving on y axis, y is now :", curr_y_axis)
+            return True
+        else:
+            if debug_flag:
+                print("move would be illegal y-axis value would be ", y_axis+move_step)
+            return False
+
+
 if __name__ == '__main__':
     # file input
 
@@ -100,7 +179,7 @@ if __name__ == '__main__':
                     set_location(int(coordinates[0]), int(coordinates[1]))
                     set_direction(direction)
                 if "MOVE" in line:
-                    # do movement
+                    move(direction, curr_x_axis, curr_y_axis)
                 if "LEFT" in line:
                     print ("go left")
                 if "RIGHT" in line:
